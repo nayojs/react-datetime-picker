@@ -1,7 +1,2 @@
-import React from "react";
-
-const DateTimePicker = () => {
-  return <div></div>;
-};
-
-export default DateTimePicker;
+import "./index.css";
+export * from "./components";
