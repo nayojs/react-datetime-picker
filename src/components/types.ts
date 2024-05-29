@@ -1,3 +1,5 @@
-export interface DefaultTheme {
-  theme?: "light" | "dark";
+import { DefaultTheme } from "styled-components";
+
+export interface ThemeInterface {
+  theme?: "light" | "dark" | DefaultTheme["theme"];
 }

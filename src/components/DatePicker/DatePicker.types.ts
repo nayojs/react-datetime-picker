@@ -1,4 +1,5 @@
 import { DefaultTheme } from "styled-components";
-import { CalendarClassesProps } from "../Calendar/Calendar.types";
+import { CalendarClassesI } from "../Calendar/Calendar.types";
+import { TriggerClassesI } from "../Trigger/Trigger.types";
 
-export interface DatePickerProps extends CalendarClassesProps, DefaultTheme {}
+export interface DatePickerProps extends CalendarClassesI, DefaultTheme, TriggerClassesI {}

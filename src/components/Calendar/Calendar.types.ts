@@ -1,4 +1,6 @@
-export interface CalendarClassesProps {
+import { ThemeInterface } from "../types";
+
+export interface CalendarClassesI {
   calendarClasses?: {
     containerClass?: string;
     headerClass?: string;
@@ -14,3 +16,5 @@ export interface CalendarClassesProps {
     activeDateClass?: string;
   };
 }
+
+export interface CalenderPropsI extends CalendarClassesI, ThemeInterface {}
