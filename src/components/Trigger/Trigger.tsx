@@ -2,12 +2,15 @@ import React from "react";
 import { TriggerPropsI } from "./Trigger.types";
 import { TriggerDefaultStyles } from "./styles/defaultStyles";
 
-export const Trigger: React.FC<TriggerPropsI> = ({ triggerClasses = {}, theme = "light" }) => {
+export const Trigger: React.FC<TriggerPropsI> = ({
+  triggerClasses = {},
+  calendarVisibilityHandler,
+}) => {
   const { containerClass = "nayojs-dtp-controller" } = triggerClasses;
   return (
     <>
-      <TriggerDefaultStyles theme={theme} />
-      <div className={containerClass}>
+      <TriggerDefaultStyles />
+      <div className={containerClass} onClick={calendarVisibilityHandler}>
         <input type="text" value="26 May 2024" readOnly />
         <svg viewBox="0 0 72 80" fill="none" xmlns="http://www.w3.org/2000/svg">
           <path
@@ -15,7 +18,7 @@ export const Trigger: React.FC<TriggerPropsI> = ({ triggerClasses = {}, theme = 
             fill="currentColor"
           />
         </svg>
-      </div>{" "}
+      </div>
     </>
   );
 };

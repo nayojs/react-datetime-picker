@@ -1,5 +1,3 @@
-import { ThemeInterface } from "../types";
-
 export interface CalendarClassesI {
   calendarClasses?: {
     containerClass?: string;
@@ -19,4 +17,7 @@ export interface CalendarClassesI {
   };
 }
 
-export interface CalenderPropsI extends CalendarClassesI, ThemeInterface {}
+export interface CalenderPropsI extends CalendarClassesI {
+  currentMonth: string;
+  calendarDays: Date[];
+}

@@ -60,6 +60,7 @@
     "webpack-dev-server": "^5.0.4"
   },
   "dependencies": {
+    "date-fns": "^3.6.0",
     "styled-components": "^6.1.11"
   }
 }

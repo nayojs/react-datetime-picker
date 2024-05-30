@@ -1,10 +1,14 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useRef, useState } from "react";
 import { CalenderPropsI } from "./Calendar.types";
 import { CalendarDefaultStyles } from "./styles/defaultStyles";
 import { generateYears } from "../../utils/DateUtils";
 import { UseOutsideClick } from "../../hooks/UseOutsideClick";
 
-export const Calendar: React.FC<CalenderPropsI> = ({ calendarClasses = {}, theme = "light" }) => {
+export const Calendar: React.FC<CalenderPropsI> = ({
+  calendarClasses = {},
+  currentMonth,
+  calendarDays,
+}) => {
   const {
     containerClass = "nayojs-calendar-container",
     headerClass = "nayojs-calendar-header",
@@ -35,11 +39,11 @@ export const Calendar: React.FC<CalenderPropsI> = ({ calendarClasses = {}, theme
 
   return (
     <>
-      <CalendarDefaultStyles theme={theme} />
+      <CalendarDefaultStyles />
       <div className={containerClass} ref={calendarRef}>
         <div className={headerClass}>
           <div className={headerTitleClass}>
-            <h3>May 2024</h3>
+            <h3>{currentMonth}</h3>
             <button type="button" className={selectButtonClass} onClick={toggleYearSelectList}>
               <svg viewBox="0 0 56 44" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <path d="M56 0L0 0L28 44L56 0Z" fill="currentColor" />
@@ -87,11 +91,12 @@ export const Calendar: React.FC<CalenderPropsI> = ({ calendarClasses = {}, theme
             ))}
           </div>
           <div className={datesContainerClass}>
-            {[...Array(31)].map((_, i) => (
-              <button key={i} className={`${dateClass} ${i === 11 ? activeDateClass : ""}`}>
-                {i + 1}
-              </button>
-            ))}
+            {calendarDays.length > 1 &&
+              calendarDays.map((_, i) => (
+                <button key={i} className={`${dateClass} ${i === 11 ? activeDateClass : ""}`}>
+                  {i + 1}
+                </button>
+              ))}
           </div>
         </div>
       </div>
