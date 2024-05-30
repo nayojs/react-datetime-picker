@@ -4,4 +4,5 @@ export interface TriggerClassesI {
 
 export interface TriggerPropsI extends TriggerClassesI {
   calendarVisibilityHandler: () => void;
+  selectedDate: string;
 }

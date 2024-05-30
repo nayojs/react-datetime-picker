@@ -123,6 +123,9 @@ export const CalendarDefaultStyles = createGlobalStyle<ThemeInterface>`
 }
 
 .nayojs-calendar-day-number-active {
+  border: 1px solid var(--fifth-color);
+}
+.nayojs-calendar-day-number-selected {
   background-color: rgb(0, 123, 255);
   color: #fff;
 }

@@ -3,11 +3,15 @@ import { CalenderPropsI } from "./Calendar.types";
 import { CalendarDefaultStyles } from "./styles/defaultStyles";
 import { generateYears } from "../../utils/DateUtils";
 import { UseOutsideClick } from "../../hooks/UseOutsideClick";
+import { format, isSameDay, isToday } from "date-fns";
 
 export const Calendar: React.FC<CalenderPropsI> = ({
   calendarClasses = {},
   currentMonth,
   calendarDays,
+  handleMonthChange,
+  datePickHandler,
+  selectedDate,
 }) => {
   const {
     containerClass = "nayojs-calendar-container",
@@ -24,6 +28,7 @@ export const Calendar: React.FC<CalenderPropsI> = ({
     datesContainerClass = "nayojs-calendar-days-body",
     dateClass = "nayojs-calendar-day-number",
     activeDateClass = "nayojs-calendar-day-number-active",
+    selectedDateClass = "nayojs-calendar-day-number-selected",
   } = calendarClasses;
   const years = generateYears();
   const [isYearListOpen, setIsYearListOpen] = useState<boolean>(false);
@@ -35,7 +40,11 @@ export const Calendar: React.FC<CalenderPropsI> = ({
     setSelectedYear(year);
     setIsYearListOpen(false);
   };
+
   UseOutsideClick(calendarRef, () => setIsYearListOpen(false));
+
+  const isSelectedDay = (day: Date) => isSameDay(day, selectedDate);
+  const isTodayHandler = (day: Date) => isToday(day);
 
   return (
     <>
@@ -51,7 +60,11 @@ export const Calendar: React.FC<CalenderPropsI> = ({
             </button>
           </div>
           <div className={navigatorsClass}>
-            <button type="button" className={navigatorsButtonClass}>
+            <button
+              type="button"
+              className={navigatorsButtonClass}
+              onClick={() => handleMonthChange("prev")}
+            >
               <svg viewBox="0 0 30 48" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <path
                   d="M29.64 42.36L11.32 24L29.64 5.64L24 0L0 24L24 48L29.64 42.36Z"
@@ -59,7 +72,7 @@ export const Calendar: React.FC<CalenderPropsI> = ({
                 />
               </svg>
             </button>
-            <button className={navigatorsButtonClass}>
+            <button className={navigatorsButtonClass} onClick={() => handleMonthChange("next")}>
               <svg viewBox="0 0 30 48" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <path
                   d="M0.360352 42.36L18.6804 24L0.360352 5.64L6.00035 0L30.0004 24L6.00035 48L0.360352 42.36Z"
@@ -92,9 +105,19 @@ export const Calendar: React.FC<CalenderPropsI> = ({
           </div>
           <div className={datesContainerClass}>
             {calendarDays.length > 1 &&
-              calendarDays.map((_, i) => (
-                <button key={i} className={`${dateClass} ${i === 11 ? activeDateClass : ""}`}>
-                  {i + 1}
+              calendarDays.map((day, i) => (
+                <button
+                  key={day.toString()}
+                  className={`${dateClass} ${
+                    isSelectedDay(day)
+                      ? selectedDateClass
+                      : isTodayHandler(day)
+                      ? activeDateClass
+                      : ""
+                  }`}
+                  onClick={() => datePickHandler(day)}
+                >
+                  {format(day, "d")}
                 </button>
               ))}
           </div>

@@ -4,7 +4,7 @@ import { DatePickerProps } from "./DatePicker.types";
 import { Trigger } from "../Trigger/Trigger";
 import { DatePickerDefaultStyles } from "./styles/defaultStyles";
 import { generateCalendarDays } from "../../utils/DateUtils";
-import { format } from "date-fns";
+import { addMonths, format, subMonths } from "date-fns";
 import { UseOutsideClick } from "../../hooks/UseOutsideClick";
 
 export const DatePicker: React.FC<DatePickerProps> = ({
@@ -20,10 +20,20 @@ export const DatePicker: React.FC<DatePickerProps> = ({
 
   useEffect(() => {
     setCalendarDays(generateCalendarDays(currentMonth));
-  }, []);
+  }, [currentMonth]);
 
   const calendarVisibilityHandler = () => setIsCalendarOpen((prev) => !prev);
   UseOutsideClick(datePickerElementRef, () => setIsCalendarOpen(false));
+
+  const handleMonthChange = (direction: "next" | "prev") => {
+    setCurrentMonth(direction === "next" ? addMonths(currentMonth, 1) : subMonths(currentMonth, 1));
+  };
+
+  const datePickHandler = (date: Date) => {
+    setSelectedDate(date);
+    setCurrentMonth(date);
+    setIsCalendarOpen(false);
+  };
 
   return (
     <>
@@ -32,12 +42,16 @@ export const DatePicker: React.FC<DatePickerProps> = ({
         <Trigger
           triggerClasses={triggerClasses}
           calendarVisibilityHandler={calendarVisibilityHandler}
+          selectedDate={format(selectedDate, "d MMMM yyyy")}
         />
         {isCalendarOpen && (
           <Calendar
             calendarClasses={calendarClasses}
             currentMonth={format(currentMonth, "MMMM yyyy")}
             calendarDays={calendarDays}
+            handleMonthChange={handleMonthChange}
+            datePickHandler={datePickHandler}
+            selectedDate={selectedDate}
           />
         )}
       </div>

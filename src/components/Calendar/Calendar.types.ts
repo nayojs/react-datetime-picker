@@ -14,10 +14,14 @@ export interface CalendarClassesI {
     datesContainerClass?: string;
     dateClass?: string;
     activeDateClass?: string;
+    selectedDateClass?: string;
   };
 }
 
 export interface CalenderPropsI extends CalendarClassesI {
   currentMonth: string;
   calendarDays: Date[];
+  handleMonthChange: (direction: "next" | "prev") => void;
+  datePickHandler: (date: Date) => void;
+  selectedDate: Date;
 }
