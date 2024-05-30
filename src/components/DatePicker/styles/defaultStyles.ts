@@ -23,6 +23,10 @@ export const DatePickerDefaultStyles = createGlobalStyle<ThemeInterface>`
 
   `}
 }
+  .nayojs-dtp-main-cointainer *{
+    font-family: "Roboto", sans-serif;
+    box-sizing: border-box;
+  }
   .nayojs-dtp-main-cointainer{
     width:320px
   }

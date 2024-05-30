@@ -1,6 +1,8 @@
-import React from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { CalenderPropsI } from "./Calendar.types";
 import { CalendarDefaultStyles } from "./styles/defaultStyles";
+import { generateYears } from "../../utils/DateUtils";
+import { UseOutsideClick } from "../../hooks/UseOutsideClick";
 
 export const Calendar: React.FC<CalenderPropsI> = ({ calendarClasses = {}, theme = "light" }) => {
   const {
@@ -8,6 +10,8 @@ export const Calendar: React.FC<CalenderPropsI> = ({ calendarClasses = {}, theme
     headerClass = "nayojs-calendar-header",
     headerTitleClass = "nayojs-calendar-header-title",
     selectButtonClass = "nayojs-calendar-header-button",
+    optionPickerClass = "nayojs-calendar-selector-list",
+    optionPickerItemClass = "nayojs-calendar-selector-list-item",
     navigatorsClass = "nayojs-calendar-header-navigators",
     navigatorsButtonClass = "nayojs-calendar-navigators-button",
     calenderClass = "nayojs-calendar-days",
@@ -17,14 +21,26 @@ export const Calendar: React.FC<CalenderPropsI> = ({ calendarClasses = {}, theme
     dateClass = "nayojs-calendar-day-number",
     activeDateClass = "nayojs-calendar-day-number-active",
   } = calendarClasses;
+  const years = generateYears();
+  const [isYearListOpen, setIsYearListOpen] = useState<boolean>(false);
+  const [selectedYear, setSelectedYear] = useState<number | Date>();
+  const calendarRef = useRef<HTMLDivElement>(null);
+
+  const toggleYearSelectList = () => setIsYearListOpen((prev) => !prev);
+  const selectYearHandler = (year: number) => {
+    setSelectedYear(year);
+    setIsYearListOpen(false);
+  };
+  UseOutsideClick(calendarRef, () => setIsYearListOpen(false));
+
   return (
     <>
       <CalendarDefaultStyles theme={theme} />
-      <div className={containerClass}>
+      <div className={containerClass} ref={calendarRef}>
         <div className={headerClass}>
           <div className={headerTitleClass}>
             <h3>May 2024</h3>
-            <button className={selectButtonClass}>
+            <button type="button" className={selectButtonClass} onClick={toggleYearSelectList}>
               <svg viewBox="0 0 56 44" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <path d="M56 0L0 0L28 44L56 0Z" fill="currentColor" />
               </svg>
@@ -49,10 +65,23 @@ export const Calendar: React.FC<CalenderPropsI> = ({ calendarClasses = {}, theme
             </button>
           </div>
         </div>
+        {isYearListOpen && (
+          <ul className={optionPickerClass}>
+            {years.map((year: number) => (
+              <li
+                className={optionPickerItemClass}
+                key={year}
+                onClick={() => selectYearHandler(year)}
+              >
+                {year}
+              </li>
+            ))}
+          </ul>
+        )}
         <div className={calenderClass}>
           <div className={daysContainerClass}>
             {["S", "M", "T", "W", "T", "F", "S"].map((day) => (
-              <h3 key={day} className={dayNameClass}>
+              <h3 key={day + Math.random()} className={dayNameClass}>
                 {day}
               </h3>
             ))}

@@ -6,6 +6,8 @@ export interface CalendarClassesI {
     headerClass?: string;
     headerTitleClass?: string;
     selectButtonClass?: string;
+    optionPickerClass?: string;
+    optionPickerItemClass?: string;
     navigatorsClass?: string;
     navigatorsButtonClass?: string;
     calenderClass?: string;
