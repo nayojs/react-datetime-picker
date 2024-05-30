@@ -1,3 +1,5 @@
+import { ThemeInterface } from "../types";
+
 export interface CalendarClassesI {
   calendarClasses?: {
     containerClass?: string;
@@ -6,6 +8,7 @@ export interface CalendarClassesI {
     selectButtonClass?: string;
     optionPickerClass?: string;
     optionPickerItemClass?: string;
+    optionPickerItemActiveClass: string;
     navigatorsClass?: string;
     navigatorsButtonClass?: string;
     calenderClass?: string;
@@ -18,10 +21,7 @@ export interface CalendarClassesI {
   };
 }
 
-export interface CalenderPropsI extends CalendarClassesI {
-  currentMonth: string;
-  calendarDays: Date[];
-  handleMonthChange: (direction: "next" | "prev") => void;
-  datePickHandler: (date: Date) => void;
-  selectedDate: Date;
+export interface CalenderPropsI extends CalendarClassesI, ThemeInterface {
+  selectDateHandler?: (date: Date) => void;
+  selectYearHandler?: (year: number) => void;
 }

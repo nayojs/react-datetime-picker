@@ -1,17 +1,16 @@
-import React, { useRef, useState } from "react";
-import { CalenderPropsI } from "./Calendar.types";
+import React from "react";
+import { CalenderPropsI } from "./calendar.types";
 import { CalendarDefaultStyles } from "./styles/defaultStyles";
 import { generateYears } from "../../utils/DateUtils";
-import { UseOutsideClick } from "../../hooks/UseOutsideClick";
-import { format, isSameDay, isToday } from "date-fns";
+import { format } from "date-fns";
+import { calendarLogic } from "./calendarLogic";
+import { GlobalrDefaultStyles } from "../../styles/globalDefaultStyles";
 
 export const Calendar: React.FC<CalenderPropsI> = ({
   calendarClasses = {},
-  currentMonth,
-  calendarDays,
-  handleMonthChange,
-  datePickHandler,
-  selectedDate,
+  selectDateHandler = () => {},
+  selectYearHandler: handleYearSelection = () => {},
+  theme = "light",
 }) => {
   const {
     containerClass = "nayojs-calendar-container",
@@ -20,6 +19,7 @@ export const Calendar: React.FC<CalenderPropsI> = ({
     selectButtonClass = "nayojs-calendar-header-button",
     optionPickerClass = "nayojs-calendar-selector-list",
     optionPickerItemClass = "nayojs-calendar-selector-list-item",
+    optionPickerItemActiveClass = "nayojs-calendar-selector-list-item-active",
     navigatorsClass = "nayojs-calendar-header-navigators",
     navigatorsButtonClass = "nayojs-calendar-navigators-button",
     calenderClass = "nayojs-calendar-days",
@@ -30,29 +30,30 @@ export const Calendar: React.FC<CalenderPropsI> = ({
     activeDateClass = "nayojs-calendar-day-number-active",
     selectedDateClass = "nayojs-calendar-day-number-selected",
   } = calendarClasses;
+
+  const {
+    isYearListOpen,
+    toggleYearSelectList,
+    selectYearHandler,
+    isSelectedDay,
+    isTodayHandler,
+    selectedYearRef,
+    calendarRef,
+    calendarDays,
+    handleMonthChange,
+    currentMonth,
+    selectedYear,
+    datePickHandler,
+  } = calendarLogic(selectDateHandler, handleYearSelection);
   const years = generateYears();
-  const [isYearListOpen, setIsYearListOpen] = useState<boolean>(false);
-  const [selectedYear, setSelectedYear] = useState<number | Date>();
-  const calendarRef = useRef<HTMLDivElement>(null);
-
-  const toggleYearSelectList = () => setIsYearListOpen((prev) => !prev);
-  const selectYearHandler = (year: number) => {
-    setSelectedYear(year);
-    setIsYearListOpen(false);
-  };
-
-  UseOutsideClick(calendarRef, () => setIsYearListOpen(false));
-
-  const isSelectedDay = (day: Date) => isSameDay(day, selectedDate);
-  const isTodayHandler = (day: Date) => isToday(day);
-
   return (
     <>
+      <GlobalrDefaultStyles theme={theme} />
       <CalendarDefaultStyles />
       <div className={containerClass} ref={calendarRef}>
         <div className={headerClass}>
           <div className={headerTitleClass}>
-            <h3>{currentMonth}</h3>
+            <h3>{format(currentMonth, "MMMM yyyy")}</h3>
             <button type="button" className={selectButtonClass} onClick={toggleYearSelectList}>
               <svg viewBox="0 0 56 44" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <path d="M56 0L0 0L28 44L56 0Z" fill="currentColor" />
@@ -86,8 +87,11 @@ export const Calendar: React.FC<CalenderPropsI> = ({
           <ul className={optionPickerClass}>
             {years.map((year: number) => (
               <li
-                className={optionPickerItemClass}
                 key={year}
+                className={`${optionPickerItemClass} ${
+                  selectedYear === year ? optionPickerItemActiveClass : ""
+                }`}
+                ref={selectedYear === year ? selectedYearRef : null}
                 onClick={() => selectYearHandler(year)}
               >
                 {year}
@@ -105,7 +109,7 @@ export const Calendar: React.FC<CalenderPropsI> = ({
           </div>
           <div className={datesContainerClass}>
             {calendarDays.length > 1 &&
-              calendarDays.map((day, i) => (
+              calendarDays.map((day) => (
                 <button
                   key={day.toString()}
                   className={`${dateClass} ${

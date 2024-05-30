@@ -7,7 +7,8 @@ export const CalendarDefaultStyles = createGlobalStyle<ThemeInterface>`
   width: 100%;
   padding: 20px;
   position:relative;
-
+  border: 1px solid var(--fifth-color);
+  border-radius: 5px;
 }
 
 .nayojs-calendar-header {
@@ -125,7 +126,8 @@ export const CalendarDefaultStyles = createGlobalStyle<ThemeInterface>`
 .nayojs-calendar-day-number-active {
   border: 1px solid var(--fifth-color);
 }
-.nayojs-calendar-day-number-selected {
+.nayojs-calendar-day-number-selected,
+.nayojs-calendar-selector-list-item-active {
   background-color: rgb(0, 123, 255);
   color: #fff;
 }
@@ -135,6 +137,7 @@ export const CalendarDefaultStyles = createGlobalStyle<ThemeInterface>`
 .nayojs-calendar-day-number:hover,
 .nayojs-calendar-selector-list-item:hover {
   background-color: var(--fourth-color-50);
+  color: var(--primary-color);
   transition: 0.3s ease-in;
 }
 
