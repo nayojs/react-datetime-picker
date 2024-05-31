@@ -13,8 +13,8 @@ export const calendarLogic = (
   const [selectedDate, setSelectedDate] = useState<Date>(new Date());
   const [currentMonth, setCurrentMonth] = useState<Date>(new Date());
   const [selectedYear, setSelectedYear] = useState<Date | number>(new Date().getFullYear());
-  const selectedYearRef = useScrollIntoView<HTMLLIElement>(selectedYear);
   const calendarRef = useRef<HTMLDivElement>(null);
+  const selectedYearRef = useScrollIntoView<HTMLLIElement>(isYearListOpen);
 
   // functions responsible to handle year selection
   const toggleYearSelectList = () => setIsYearListOpen((prev) => !prev);
@@ -49,7 +49,7 @@ export const calendarLogic = (
   const handleYearChange = (year: number) => {
     const newDate = setYear(selectedDate, year);
     setSelectedDate(newDate);
-    setCurrentMonth(newDate);
+    setCurrentMonth((prev) => setYear(prev, year));
     setSelectedYear(year);
     selectDateHandler(newDate);
     handleYearSelection(year);

@@ -8,6 +8,7 @@ import { GlobalrDefaultStyles } from "../../styles/globalDefaultStyles";
 
 export const Calendar: React.FC<CalenderPropsI> = ({
   calendarClasses = {},
+  calendarStyles = {},
   selectDateHandler = () => {},
   selectYearHandler: handleYearSelection = () => {},
   theme = "light",
@@ -30,6 +31,21 @@ export const Calendar: React.FC<CalenderPropsI> = ({
     activeDateClass = "nayojs-calendar-day-number-active",
     selectedDateClass = "nayojs-calendar-day-number-selected",
   } = calendarClasses;
+  const {
+    containerStyles = {},
+    headerStyles = {},
+    headerTitleStyles = {},
+    selectButtonStyles = {},
+    optionPickerStyles = {},
+    optionPickerItemStyles = {},
+    navigatorsStyles = {},
+    navigatorsButtonStyles = {},
+    calenderStyles = {},
+    daysContainerStyles = {},
+    dayNameStyles = {},
+    datesContainerStyles = {},
+    dateStyles = {},
+  } = calendarStyles;
 
   const {
     isYearListOpen,
@@ -50,20 +66,26 @@ export const Calendar: React.FC<CalenderPropsI> = ({
     <>
       <GlobalrDefaultStyles theme={theme} />
       <CalendarDefaultStyles />
-      <div className={containerClass} ref={calendarRef}>
-        <div className={headerClass}>
-          <div className={headerTitleClass}>
+      <div className={containerClass} style={containerStyles} ref={calendarRef}>
+        <div className={headerClass} style={headerStyles}>
+          <div className={headerTitleClass} style={headerTitleStyles}>
             <h3>{format(currentMonth, "MMMM yyyy")}</h3>
-            <button type="button" className={selectButtonClass} onClick={toggleYearSelectList}>
+            <button
+              type="button"
+              className={selectButtonClass}
+              style={selectButtonStyles}
+              onClick={toggleYearSelectList}
+            >
               <svg viewBox="0 0 56 44" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <path d="M56 0L0 0L28 44L56 0Z" fill="currentColor" />
               </svg>
             </button>
           </div>
-          <div className={navigatorsClass}>
+          <div className={navigatorsClass} style={navigatorsStyles}>
             <button
               type="button"
               className={navigatorsButtonClass}
+              style={navigatorsButtonStyles}
               onClick={() => handleMonthChange("prev")}
             >
               <svg viewBox="0 0 30 48" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -73,7 +95,11 @@ export const Calendar: React.FC<CalenderPropsI> = ({
                 />
               </svg>
             </button>
-            <button className={navigatorsButtonClass} onClick={() => handleMonthChange("next")}>
+            <button
+              className={navigatorsButtonClass}
+              style={navigatorsButtonStyles}
+              onClick={() => handleMonthChange("next")}
+            >
               <svg viewBox="0 0 30 48" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <path
                   d="M0.360352 42.36L18.6804 24L0.360352 5.64L6.00035 0L30.0004 24L6.00035 48L0.360352 42.36Z"
@@ -84,13 +110,14 @@ export const Calendar: React.FC<CalenderPropsI> = ({
           </div>
         </div>
         {isYearListOpen && (
-          <ul className={optionPickerClass}>
+          <ul className={optionPickerClass} style={optionPickerStyles}>
             {years.map((year: number) => (
               <li
                 key={year}
                 className={`${optionPickerItemClass} ${
                   selectedYear === year ? optionPickerItemActiveClass : ""
                 }`}
+                style={optionPickerItemStyles}
                 ref={selectedYear === year ? selectedYearRef : null}
                 onClick={() => selectYearHandler(year)}
               >
@@ -99,15 +126,15 @@ export const Calendar: React.FC<CalenderPropsI> = ({
             ))}
           </ul>
         )}
-        <div className={calenderClass}>
-          <div className={daysContainerClass}>
+        <div className={calenderClass} style={calenderStyles}>
+          <div className={daysContainerClass} style={daysContainerStyles}>
             {["S", "M", "T", "W", "T", "F", "S"].map((day) => (
-              <h3 key={day + Math.random()} className={dayNameClass}>
+              <h3 key={day + Math.random()} className={dayNameClass} style={dayNameStyles}>
                 {day}
               </h3>
             ))}
           </div>
-          <div className={datesContainerClass}>
+          <div className={datesContainerClass} style={datesContainerStyles}>
             {calendarDays.length > 1 &&
               calendarDays.map((day) => (
                 <button
@@ -119,6 +146,7 @@ export const Calendar: React.FC<CalenderPropsI> = ({
                       ? activeDateClass
                       : ""
                   }`}
+                  style={dateStyles}
                   onClick={() => datePickHandler(day)}
                 >
                   {format(day, "d")}

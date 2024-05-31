@@ -26,6 +26,32 @@ export const CalendarDefaultStyles = createGlobalStyle<ThemeInterface>`
   column-gap: 0.5rem;
 }
 
+.nayojs-calendar-selector-list::-webkit-scrollbar {
+  width: 7px;
+  height: 7px;
+  border-radius: 7px;
+  background-color: transparent;
+}
+
+.nayojs-calendar-selector-list::-webkit-scrollbar-button {
+  width: 7px;
+  height: 7px;
+  background-color: transparent;
+}
+
+.nayojs-calendar-selector-list::-webkit-scrollbar-track {
+  background-color: transparent;
+}
+
+.nayojs-calendar-selector-list::-webkit-scrollbar-thumb {
+  background-color: var(--fifth-color);
+  border-radius: 7px;
+}
+
+.nayojs-calendar-selector-list::-webkit-scrollbar-thumb:hover {
+  background-color: var(--third-color);
+}
+
 .nayojs-calendar-selector-list {
   position:absolute;
   background-color:var(--secondary-color);

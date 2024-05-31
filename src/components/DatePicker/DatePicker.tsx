@@ -8,13 +8,17 @@ import { GlobalrDefaultStyles } from "../../styles/globalDefaultStyles";
 
 export const DatePicker: React.FC<DatePickerProps> = ({
   calendarClasses,
+  calendarStyles,
+  datePickerClasses = {},
+  datePickerStyles = {},
   theme,
-  triggerClasses = {},
   isCalendarVisible,
   selectDateHandler: dateChangeHandler,
   selectYearHandler,
 }) => {
-  const { containerClass = "nayojs-dtp-controller" } = triggerClasses;
+  const { containerClass = "nayojs-dtp-main-cointainer", triggerClass = "nayojs-dtp-controller" } =
+    datePickerClasses;
+  const { containerStyles = {}, triggerStyles = {} } = datePickerStyles;
   const {
     selectedDate,
     isCalendarOpen,
@@ -28,8 +32,8 @@ export const DatePicker: React.FC<DatePickerProps> = ({
     <>
       <GlobalrDefaultStyles theme={theme} />
       <DatePickerDefaultStyles />
-      <div className="nayojs-dtp-main-cointainer" ref={datePickerElementRef}>
-        <div className={containerClass} onClick={calendarVisibilityHandler}>
+      <div className={containerClass} style={containerStyles} ref={datePickerElementRef}>
+        <div className={triggerClass} style={triggerStyles} onClick={calendarVisibilityHandler}>
           <input type="text" value={format(selectedDate, "d MMMM yyyy")} readOnly />
           <svg viewBox="0 0 72 80" fill="none" xmlns="http://www.w3.org/2000/svg">
             <path
@@ -38,14 +42,11 @@ export const DatePicker: React.FC<DatePickerProps> = ({
             />
           </svg>
         </div>
-        {/* <Trigger
-          triggerClasses={triggerClasses}
-          calendarVisibilityHandler={calendarVisibilityHandler}
-          selectedDate={format(selectedDate, "d MMMM yyyy")}
-        /> */}
         {isCalendarOpen && (
           <Calendar
+            theme={theme}
             calendarClasses={calendarClasses}
+            calendarStyles={calendarStyles}
             selectDateHandler={selectDateHandler}
             selectYearHandler={handleYearSelection}
           />
