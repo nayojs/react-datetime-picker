@@ -1,7 +1,7 @@
 import React from "react";
 import { CalenderPropsI } from "./calendar.types";
 import { CalendarDefaultStyles } from "./styles/defaultStyles";
-import { generateYears } from "../../utils/DateUtils";
+import { generateYears } from "../../utils/date.utils";
 import { format } from "date-fns";
 import { calendarLogic } from "./calendarLogic";
 import { GlobalrDefaultStyles } from "../../styles/globalDefaultStyles";

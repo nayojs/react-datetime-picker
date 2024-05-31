@@ -2,7 +2,7 @@ import { useEffect, useRef, useState } from "react";
 import { addMonths, isSameDay, isToday, setYear, subMonths } from "date-fns";
 import { useScrollIntoView } from "../../hooks/useCrollIntoView";
 import { useOutsideClick } from "../../hooks/useOutsideClick";
-import { generateCalendarDays } from "../../utils/DateUtils";
+import { generateCalendarDays } from "../../utils/date.utils";
 
 export const calendarLogic = (
   selectDateHandler: (date: Date) => void,
