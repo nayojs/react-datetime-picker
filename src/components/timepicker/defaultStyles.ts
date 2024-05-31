@@ -37,40 +37,44 @@ export const TimePickerDefaultStyles = createGlobalStyle`
 
 .nayojs-time-container {
   width: 100%;
+  height: 320px;
+  display: flex;
   border: 1px solid var(--fifth-color);
   border-radius: 5px;
-  background-color:var(--secondary-color);
-  height: 320px;
-  border: 1px solid var(--fifth-color);
+  column-gap: 20px;
+  overflow: hidden;
+  background-color: var(--secondary-color);
 }
 
-.nayojs-time-numbers {
-  width: 100%;
-  height: calc(100% - 70px);
-  display: flex;
-  position: relative;
-  z-index: 0;
-}
-
-.nayojs-time-hour-list,
-.nayojs-time-minutes-list {
+.nayojs-time-hr {
+  width: 1px;
   height: 100%;
-  padding: 20px;
+  background-color: var(--fifth-color);
+  border: none;
+}
+
+.nayojs-time-list {
+  height: calc(100% - 40px);
+  padding: 0 20px;
   overflow: auto;
   flex: 1;
 }
 
+.nayojs-time-hour-list {
+  margin: 20px 0 0 20px;
+}
+
 .nayojs-time-minutes-list {
-  border-left: 1px solid var(--fifth-color);
+  margin: 20px 20px 0 0;
 }
 
 
-.nayojs-time-hour-list-item,
-.nayojs-time-minutes-list-item {
+.nayojs-time-list-item {
   display: flex;
   justify-content: center;
   align-items: center;
   padding: 10px;
+  margin-bottom:10px;
   cursor: pointer;
   color: var(--primary-color);
   border-radius: 5px;
@@ -78,43 +82,16 @@ export const TimePickerDefaultStyles = createGlobalStyle`
   font-weight: 400;
   list-style: none;
   width: 100%;
-  margin-bottom:10px;
 }
-
-.nayojs-time-submit {
-  height: 70px;
-  width: 100%;
-  border-top: 1px solid var(--fifth-color);
-  background-color: var(--bg-color);
-  display: flex;
-  align-items: center;
-  justify-content: flex-end;
-  position: relative;
-  z-index: 1;
-
-}
-
-.nayojs-time-submit-button {
-  outline: none;
-  border: none;
-  height: 35px;
-  width: calc(50% - 40px);
-  margin-right: 20px;
-  border-radius: 5px;
-  font-size: 12px;
-  font-weight: 400;
-  cursor: pointer;
-
-}
-
-.nayojs-time-submit-button {
+.nayojs-time-list-item-active {
   background-color: rgb(0, 123, 255);
   color: #fff;
 }
 
-.nayojs-time-hour-list-item:hover,
-.nayojs-time-minutes-list-item:hover {
+.nayojs-time-list-item:hover {
   background-color: var(--fourth-color);
+  color: var(--primary-color);
   transition: 0.3s ease-in;
 }
+
 `;
