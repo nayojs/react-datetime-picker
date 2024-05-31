@@ -10,14 +10,14 @@ export const GlobalrDefaultStyles = createGlobalStyle<ThemeInterface>`
     --primary-color: #fff;
     --secondary-color: #000;
     --third-color: rgba(255, 255, 255, 0.5);
-    --fourth-color-50: rgba(255, 255, 255, 0.08);
+    --fourth-color: rgba(255, 255, 255, 0.08);
     --fifth-color: rgba(255, 255, 255, 0.2);
     `
       : `
     --primary-color: #000;
     --secondary-color: #fff;
     --third-color: rgba(0, 0, 0, 0.5);
-    --fourth-color-50: rgba(0, 0, 0, 0.08);
+    --fourth-color: rgba(0, 0, 0, 0.08);
 
     --fifth-color: rgba(0, 0, 0, 0.2);
 

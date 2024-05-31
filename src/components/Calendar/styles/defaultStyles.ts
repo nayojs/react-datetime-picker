@@ -162,7 +162,7 @@ export const CalendarDefaultStyles = createGlobalStyle<ThemeInterface>`
 .nayojs-calendar-navigators-button:hover,
 .nayojs-calendar-day-number:hover,
 .nayojs-calendar-selector-list-item:hover {
-  background-color: var(--fourth-color-50);
+  background-color: var(--fourth-color);
   color: var(--primary-color);
   transition: 0.3s ease-in;
 }
