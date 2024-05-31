@@ -5,7 +5,7 @@ export const useScrollIntoView = <T extends HTMLElement>(trigger: any) => {
 
   useEffect(() => {
     if (trigger && elementRef.current) {
-      elementRef.current.scrollIntoView({ behavior: "smooth", block: "center" });
+      elementRef.current.scrollIntoView({ block: "center" });
     }
   }, [trigger]);
 

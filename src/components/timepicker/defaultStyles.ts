@@ -2,7 +2,8 @@ import { createGlobalStyle } from "styled-components";
 
 export const TimePickerDefaultStyles = createGlobalStyle`
   .nayojs-dtp-main-cointainer{
-    width:320px
+    width:320px;
+    position: relative;
   }
 
   .nayojs-dtp-controller {
@@ -38,14 +39,38 @@ export const TimePickerDefaultStyles = createGlobalStyle`
 .nayojs-time-container {
   width: 100%;
   height: 320px;
-  display: flex;
+  position: absolute;
+  top: 60px;
+  left: 0;
   border: 1px solid var(--fifth-color);
   border-radius: 5px;
-  column-gap: 20px;
   overflow: hidden;
   background-color: var(--secondary-color);
 }
+.nayojs-time-header {
+  width: 100%;
+  height: 50px;
+  border-bottom: 1px solid var(--fifth-color);
+  background-color: var(--secondary-color);
+  display: grid;
+  align-content: center;
+  grid-template-columns: repeat(2, 1fr);
+}
 
+.nayojs-time-title {
+  font-size: 13px;
+  font-weight: 400;
+  width: 100%;
+  height: 100%;
+  text-align: center;
+  color: var(--primary-color);
+}
+.nayojs-time-digits{
+  width: 100%;
+  height: calc(100% - 50px);
+  display:flex;
+  column-gap: 20px;
+}
 .nayojs-time-hr {
   width: 1px;
   height: 100%;
@@ -53,9 +78,35 @@ export const TimePickerDefaultStyles = createGlobalStyle`
   border: none;
 }
 
+.nayojs-time-list::-webkit-scrollbar {
+  width: 7px;
+  height: 7px;
+  border-radius: 7px;
+  background-color: transparent;
+}
+
+.nayojs-time-list::-webkit-scrollbar-button {
+  width: 7px;
+  height: 7px;
+  background-color: transparent;
+}
+
+.nayojs-time-list::-webkit-scrollbar-track {
+  background-color: transparent;
+}
+
+.nayojs-time-list::-webkit-scrollbar-thumb {
+  background-color: var(--fifth-color);
+  border-radius: 7px;
+}
+
+.nayojs-time-list::-webkit-scrollbar-thumb:hover {
+  background-color: var(--third-color);
+}
+
 .nayojs-time-list {
   height: calc(100% - 40px);
-  padding: 0 20px;
+  padding: 0 20px 20px 20px;
   overflow: auto;
   flex: 1;
 }

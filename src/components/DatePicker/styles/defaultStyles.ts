@@ -2,7 +2,9 @@ import { createGlobalStyle } from "styled-components";
 
 export const DatePickerDefaultStyles = createGlobalStyle`
   .nayojs-dtp-main-cointainer{
-    width:320px
+    width:320px;
+    position: relative;
+
   }
 
   .nayojs-dtp-controller {

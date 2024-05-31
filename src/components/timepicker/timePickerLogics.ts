@@ -1,15 +1,27 @@
-import { isSameHour, isSameMinute, setHours, setMinutes } from "date-fns";
-import { useState } from "react";
+import { setHours, setMinutes } from "date-fns";
+import { useRef, useState } from "react";
+import { useScrollIntoView } from "../../hooks/useCrollIntoView";
+import { useOutsideClick } from "../../hooks/useOutsideClick";
 
-export const timePickerLogics = () => {
-  const [currentTime, setCurrentTime] = useState<Date>(new Date());
+export const timePickerLogics = (selectTimeHandler: (time: Date) => void) => {
   const [selectedTime, setSelectedTime] = useState<Date>(new Date());
   const [isTimeListOpen, setIsTimeListOpen] = useState<boolean>(false);
+  const selectedHourRef = useScrollIntoView<HTMLLIElement>(isTimeListOpen);
+  const selectedMinutesRef = useScrollIntoView<HTMLLIElement>(isTimeListOpen);
+  const timePickerRef = useRef<HTMLDivElement>(null);
 
-  const timeListVisibilityHandler = () => setIsTimeListOpen((prev) => !prev);
+  const handleOutsideClick = () => setIsTimeListOpen(false);
+
+  useOutsideClick(timePickerRef, handleOutsideClick);
+
+  const timeListVisibilityHandler = () => {
+    setIsTimeListOpen((prev) => !prev);
+  };
 
   // highlight hours handlers
-  const isSelectedHour = (hourDate: Date) => isSameHour(selectedTime, hourDate);
+  const isSelectedHour = (hourDate: Date) => {
+    return selectedTime.getHours() === hourDate.getHours();
+  };
 
   // highlight minutes handlers
   const isSelectedMinutes = (minutesDate: Date) => {
@@ -18,15 +30,19 @@ export const timePickerLogics = () => {
 
   // hours change handler
   const hourChangeHandler = (hourDate: Date) => {
-    setSelectedTime(setHours(selectedTime, hourDate.getHours()));
+    const newTime = setHours(selectedTime, hourDate.getHours());
+    setSelectedTime(newTime);
+    selectTimeHandler(newTime);
   };
 
   // minutes change handler
   const minutesChangeHandler = (minuteDate: Date) => {
-    setSelectedTime(setMinutes(selectedTime, minuteDate.getMinutes()));
+    const newTime = setMinutes(selectedTime, minuteDate.getMinutes());
+    setSelectedTime(newTime);
+    selectTimeHandler(newTime);
   };
 
-  // const handleTimeSumb
+  // scroll to current selected hour or minutes
 
   return {
     isTimeListOpen,
@@ -36,5 +52,8 @@ export const timePickerLogics = () => {
     isSelectedMinutes,
     hourChangeHandler,
     minutesChangeHandler,
+    selectedHourRef,
+    selectedMinutesRef,
+    timePickerRef,
   };
 };

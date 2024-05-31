@@ -10,11 +10,15 @@ export const TimePicker: React.FC<TimePickerProps> = ({
   timePickerClasses = {},
   timePickerStyles = {},
   theme,
+  selectTimeHandler = () => {},
 }) => {
   const {
     containerClass = "nayojs-dtp-main-cointainer",
     triggerClass = "nayojs-dtp-controller",
     timeClass = "nayojs-time-container",
+    timeHeaderClass = "nayojs-time-header",
+    timeTitleClass = "nayojs-time-title",
+    timeDigitsClass = "nayojs-time-digits",
     timeListClass = "nayojs-time-list",
     timeHoursClass = "nayojs-time-hour-list",
     timeMinutesClass = "nayojs-time-minutes-list",
@@ -22,7 +26,18 @@ export const TimePicker: React.FC<TimePickerProps> = ({
     timeActiveItemClass = "nayojs-time-list-item-active",
     timeLineClass = "nayojs-time-hr",
   } = timePickerClasses;
-  const { containerStyles = {}, triggerStyles = {} } = timePickerStyles;
+  const {
+    containerStyles = {},
+    triggerStyles = {},
+    timeStyles = {},
+    timeHeaderStyles = {},
+    timeTitleStyles = {},
+    timeDigitsStyles = {},
+    timeHoursStyles = {},
+    timeMinutesStyles = {},
+    timeListItemsStyles = {},
+    timeLineStyles = {},
+  } = timePickerStyles;
   const {
     isTimeListOpen,
     timeListVisibilityHandler,
@@ -31,14 +46,19 @@ export const TimePicker: React.FC<TimePickerProps> = ({
     isSelectedMinutes,
     hourChangeHandler,
     minutesChangeHandler,
-  } = timePickerLogics();
+    selectedHourRef,
+    selectedMinutesRef,
+    timePickerRef,
+  } = timePickerLogics(selectTimeHandler);
+
   const hours = generateHours();
   const minutes = generateMinutes();
+
   return (
     <>
       <GlobalrDefaultStyles theme={theme} />
       <TimePickerDefaultStyles />
-      <div className={containerClass} style={containerStyles}>
+      <div className={containerClass} style={containerStyles} ref={timePickerRef}>
         <div className={triggerClass} style={triggerStyles} onClick={timeListVisibilityHandler}>
           <input type="text" value={format(selectedTime, "HH:mm a")} readOnly />
           <svg viewBox="0 0 72 80" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -49,35 +69,48 @@ export const TimePicker: React.FC<TimePickerProps> = ({
           </svg>
         </div>
         {isTimeListOpen && (
-          <div className={timeClass}>
-            <ul className={`${timeListClass} ${timeHoursClass}`}>
-              {hours.map((hour) => (
-                <li
-                  key={hour.toString()}
-                  className={`${timeListItemsClass} ${
-                    isSelectedHour(hour) ? timeActiveItemClass : ""
-                  }`}
-                  onClick={() => hourChangeHandler(hour)}
-                >
-                  {format(hour, "HH")}
-                </li>
-              ))}
-            </ul>
-            <hr className={timeLineClass} />
-            <ul className={`${timeListClass} ${timeMinutesClass}`}>
-              {minutes.map((minute) => (
-                <li
-                  key={minute.toString()}
-                  className={`${timeListItemsClass} ${
-                    isSelectedMinutes(minute) ? timeActiveItemClass : ""
-                  }`}
-                  onClick={() => minutesChangeHandler(minute)}
-                >
-                  {format(minute, "mm")}
-                  <>{console.log(format(minute, "mm"), "hour------", isSelectedMinutes(minute))}</>
-                </li>
-              ))}
-            </ul>
+          <div className={timeClass} style={timeStyles}>
+            <div className={timeHeaderClass} style={timeHeaderStyles}>
+              <h3 className={timeTitleClass} style={timeTitleStyles}>
+                Hours
+              </h3>
+              <h3 className={timeTitleClass} style={timeTitleStyles}>
+                Minutes
+              </h3>
+            </div>
+            <div className={timeDigitsClass} style={timeDigitsStyles}>
+              <ul className={`${timeListClass} ${timeHoursClass}`} style={timeHoursStyles}>
+                {hours.map((hour) => (
+                  <li
+                    key={hour.toString()}
+                    className={`${timeListItemsClass} ${
+                      isSelectedHour(hour) ? timeActiveItemClass : ""
+                    }`}
+                    style={timeListItemsStyles}
+                    ref={isSelectedHour(hour) ? selectedHourRef : null}
+                    onClick={() => hourChangeHandler(hour)}
+                  >
+                    {format(hour, "HH")}
+                  </li>
+                ))}
+              </ul>
+              <hr className={timeLineClass} style={timeLineStyles} />
+              <ul className={`${timeListClass} ${timeMinutesClass}`} style={timeMinutesStyles}>
+                {minutes.map((minute) => (
+                  <li
+                    key={minute.toString()}
+                    className={`${timeListItemsClass} ${
+                      isSelectedMinutes(minute) ? timeActiveItemClass : ""
+                    }`}
+                    style={timeListItemsStyles}
+                    ref={isSelectedMinutes(minute) ? selectedMinutesRef : null}
+                    onClick={() => minutesChangeHandler(minute)}
+                  >
+                    {format(minute, "mm")}
+                  </li>
+                ))}
+              </ul>
+            </div>
           </div>
         )}
       </div>
