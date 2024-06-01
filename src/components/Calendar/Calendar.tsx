@@ -18,11 +18,16 @@ export const Calendar: React.FC<CalenderPropsI> = ({
     headerClass = "nayojs-calendar-header",
     headerTitleClass = "nayojs-calendar-header-title",
     selectButtonClass = "nayojs-calendar-header-button",
+    selectButtonIconClass = "nayojs-calendar-header-button-icon",
     optionPickerClass = "nayojs-calendar-selector-list",
     optionPickerItemClass = "nayojs-calendar-selector-list-item",
     optionPickerItemActiveClass = "nayojs-calendar-selector-list-item-active",
     navigatorsClass = "nayojs-calendar-header-navigators",
     navigatorsButtonClass = "nayojs-calendar-navigators-button",
+    navigatorsButtonPrevClass = "nayojs-calendar-navigators-button-prev",
+    navigatorsButtonNextClass = "nayojs-calendar-navigators-button-next",
+    navigatorsButtonPrevIconClass = "nayojs-calendar-navigators-button-prev-icon",
+    navigatorsButtonNextIconClass = "nayojs-calendar-navigators-button-next-icon",
     calenderClass = "nayojs-calendar-days",
     daysContainerClass = "nayojs-calendar-days-header",
     dayNameClass = "nayojs-calendar-day-title",
@@ -36,15 +41,24 @@ export const Calendar: React.FC<CalenderPropsI> = ({
     headerStyles = {},
     headerTitleStyles = {},
     selectButtonStyles = {},
+    selectButtonIconStyles = {},
     optionPickerStyles = {},
     optionPickerItemStyles = {},
+    optionPickerItemActiveStyles = {},
     navigatorsStyles = {},
     navigatorsButtonStyles = {},
+    navigatorsButtonPrevStyles = {},
+    navigatorsButtonNextStyles = {},
+    activeNavigatorStyles = {},
+    navigatorsButtonPrevIconStyles = {},
+    navigatorsButtonNextIconStyles = {},
     calenderStyles = {},
     daysContainerStyles = {},
     dayNameStyles = {},
     datesContainerStyles = {},
     dateStyles = {},
+    selectedDateStyles = {},
+    activeDateStyles = {},
   } = calendarStyles;
 
   const {
@@ -60,8 +74,12 @@ export const Calendar: React.FC<CalenderPropsI> = ({
     currentMonth,
     selectedYear,
     datePickHandler,
+    mergeStyles,
+    activeNavigator,
   } = calendarLogic(selectDateHandler, handleYearSelection);
   const years = generateYears();
+  const weekNames = ["S", "M", "T", "W", "T", "F", "S"];
+
   return (
     <>
       <GlobalrDefaultStyles theme={theme} />
@@ -76,7 +94,13 @@ export const Calendar: React.FC<CalenderPropsI> = ({
               style={selectButtonStyles}
               onClick={toggleYearSelectList}
             >
-              <svg viewBox="0 0 56 44" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <svg
+                className={selectButtonIconClass}
+                style={selectButtonIconStyles}
+                viewBox="0 0 56 44"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+              >
                 <path d="M56 0L0 0L28 44L56 0Z" fill="currentColor" />
               </svg>
             </button>
@@ -84,11 +108,20 @@ export const Calendar: React.FC<CalenderPropsI> = ({
           <div className={navigatorsClass} style={navigatorsStyles}>
             <button
               type="button"
-              className={navigatorsButtonClass}
-              style={navigatorsButtonStyles}
+              className={`${navigatorsButtonClass} ${navigatorsButtonPrevClass}`}
+              style={mergeStyles(
+                mergeStyles(navigatorsButtonStyles, navigatorsButtonPrevStyles),
+                activeNavigator === "prev" ? activeNavigatorStyles : {}
+              )}
               onClick={() => handleMonthChange("prev")}
             >
-              <svg viewBox="0 0 30 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <svg
+                className={navigatorsButtonPrevIconClass}
+                style={navigatorsButtonPrevIconStyles}
+                viewBox="0 0 30 48"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+              >
                 <path
                   d="M29.64 42.36L11.32 24L29.64 5.64L24 0L0 24L24 48L29.64 42.36Z"
                   fill="currentColor"
@@ -96,11 +129,20 @@ export const Calendar: React.FC<CalenderPropsI> = ({
               </svg>
             </button>
             <button
-              className={navigatorsButtonClass}
-              style={navigatorsButtonStyles}
+              className={`${navigatorsButtonClass} ${navigatorsButtonNextClass}`}
+              style={mergeStyles(
+                mergeStyles(navigatorsButtonStyles, navigatorsButtonNextStyles),
+                activeNavigator === "next" ? activeNavigatorStyles : {}
+              )}
               onClick={() => handleMonthChange("next")}
             >
-              <svg viewBox="0 0 30 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <svg
+                className={navigatorsButtonNextIconClass}
+                style={navigatorsButtonNextIconStyles}
+                viewBox="0 0 30 48"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+              >
                 <path
                   d="M0.360352 42.36L18.6804 24L0.360352 5.64L6.00035 0L30.0004 24L6.00035 48L0.360352 42.36Z"
                   fill="currentColor"
@@ -117,7 +159,10 @@ export const Calendar: React.FC<CalenderPropsI> = ({
                 className={`${optionPickerItemClass} ${
                   selectedYear === year ? optionPickerItemActiveClass : ""
                 }`}
-                style={optionPickerItemStyles}
+                style={mergeStyles(
+                  optionPickerItemStyles,
+                  selectedYear === year ? optionPickerItemActiveStyles : {}
+                )}
                 ref={selectedYear === year ? selectedYearRef : null}
                 onClick={() => selectYearHandler(year)}
               >
@@ -128,7 +173,7 @@ export const Calendar: React.FC<CalenderPropsI> = ({
         )}
         <div className={calenderClass} style={calenderStyles}>
           <div className={daysContainerClass} style={daysContainerStyles}>
-            {["S", "M", "T", "W", "T", "F", "S"].map((day) => (
+            {weekNames.map((day) => (
               <h3 key={day + Math.random()} className={dayNameClass} style={dayNameStyles}>
                 {day}
               </h3>
@@ -146,7 +191,14 @@ export const Calendar: React.FC<CalenderPropsI> = ({
                       ? activeDateClass
                       : ""
                   }`}
-                  style={dateStyles}
+                  style={mergeStyles(
+                    dateStyles,
+                    isSelectedDay(day)
+                      ? selectedDateStyles
+                      : isTodayHandler(day)
+                      ? activeDateStyles
+                      : {}
+                  )}
                   onClick={() => datePickHandler(day)}
                 >
                   {format(day, "d")}

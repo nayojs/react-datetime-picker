@@ -12,6 +12,7 @@ export const calendarLogic = (
   const [isYearListOpen, setIsYearListOpen] = useState<boolean>(false);
   const [selectedDate, setSelectedDate] = useState<Date>(new Date());
   const [currentMonth, setCurrentMonth] = useState<Date>(new Date());
+  const [activeNavigator, setActiveNavigator] = useState<"prev" | "next" | null>(null);
   const [selectedYear, setSelectedYear] = useState<Date | number>(new Date().getFullYear());
   const calendarRef = useRef<HTMLDivElement>(null);
   const selectedYearRef = useScrollIntoView<HTMLLIElement>(isYearListOpen);
@@ -37,6 +38,7 @@ export const calendarLogic = (
 
   const handleMonthChange = (direction: "next" | "prev") => {
     setCurrentMonth(direction === "next" ? addMonths(currentMonth, 1) : subMonths(currentMonth, 1));
+    setActiveNavigator(direction);
   };
 
   // handle date selection
@@ -55,6 +57,10 @@ export const calendarLogic = (
     handleYearSelection(year);
   };
 
+  const mergeStyles = (defaultStyles: React.CSSProperties, customStyles: React.CSSProperties) => {
+    return { ...defaultStyles, ...customStyles };
+  };
+
   return {
     isYearListOpen,
     toggleYearSelectList,
@@ -68,5 +74,7 @@ export const calendarLogic = (
     currentMonth,
     selectedYear,
     datePickHandler,
+    mergeStyles,
+    activeNavigator,
   };
 };

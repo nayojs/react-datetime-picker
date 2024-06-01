@@ -6,11 +6,17 @@ export interface CalendarClassesI {
     headerClass?: string;
     headerTitleClass?: string;
     selectButtonClass?: string;
+    selectButtonIconClass?: string;
     optionPickerClass?: string;
     optionPickerItemClass?: string;
-    optionPickerItemActiveClass: string;
+    optionPickerItemActiveClass?: string;
     navigatorsClass?: string;
     navigatorsButtonClass?: string;
+    navigatorsButtonPrevClass?: string;
+    navigatorsButtonNextClass?: string;
+    navigatorsButtonPrevIconClass?: string;
+    navigatorsButtonNextIconClass?: string;
+    activeNavigatorClass?: string;
     calenderClass?: string;
     daysContainerClass?: string;
     dayNameClass?: string;
@@ -27,15 +33,24 @@ export interface CalendarStylesI {
     headerStyles?: React.CSSProperties;
     headerTitleStyles?: React.CSSProperties;
     selectButtonStyles?: React.CSSProperties;
+    selectButtonIconStyles?: React.CSSProperties;
     optionPickerStyles?: React.CSSProperties;
     optionPickerItemStyles?: React.CSSProperties;
+    optionPickerItemActiveStyles?: React.CSSProperties;
     navigatorsStyles?: React.CSSProperties;
     navigatorsButtonStyles?: React.CSSProperties;
+    navigatorsButtonPrevStyles?: React.CSSProperties;
+    navigatorsButtonNextStyles?: React.CSSProperties;
+    navigatorsButtonPrevIconStyles?: React.CSSProperties;
+    navigatorsButtonNextIconStyles?: React.CSSProperties;
+    activeNavigatorStyles?: React.CSSProperties;
     calenderStyles?: React.CSSProperties;
     daysContainerStyles?: React.CSSProperties;
     dayNameStyles?: React.CSSProperties;
     datesContainerStyles?: React.CSSProperties;
     dateStyles?: React.CSSProperties;
+    selectedDateStyles?: React.CSSProperties;
+    activeDateStyles?: React.CSSProperties;
   };
 }
 

@@ -113,15 +113,16 @@ export const CalendarDefaultStyles = createGlobalStyle<ThemeInterface>`
 
 
 
-.nayojs-calendar-header-button svg {
+.nayojs-calendar-header-button-icon {
   width: 10px;
   height: 10px;
 }
 
-.nayojs-calendar-navigators-button svg {
+.nayojs-calendar-navigators-button-prev-icon, .nayojs-calendar-navigators-button-next-icon {
   width: 12px;
   height: 12px;
 }
+
 
 .nayojs-calendar-days {
   width: 100%
