@@ -86,7 +86,7 @@ export const CalendarDefaultStyles = createGlobalStyle<ThemeInterface>`
 .nayojs-calendar-header-navigators{
   column-gap: 1rem;
 }
-.nayojs-calendar-header-title h3 {
+.nayojs-calendar-header-title-text {
   font-size: 18px;
   font-weight: 400;
   padding-left: 10px;

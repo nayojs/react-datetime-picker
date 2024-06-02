@@ -42,7 +42,10 @@ export const timePickerLogics = (selectTimeHandler: (time: Date) => void) => {
     selectTimeHandler(newTime);
   };
 
-  // scroll to current selected hour or minutes
+  const mergeStyles = (defaultStyles: React.CSSProperties, customStyles: React.CSSProperties) => ({
+    ...defaultStyles,
+    ...customStyles,
+  });
 
   return {
     isTimeListOpen,
@@ -55,5 +58,6 @@ export const timePickerLogics = (selectTimeHandler: (time: Date) => void) => {
     selectedHourRef,
     selectedMinutesRef,
     timePickerRef,
+    mergeStyles,
   };
 };

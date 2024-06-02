@@ -19,7 +19,7 @@ export const TimePickerDefaultStyles = createGlobalStyle`
   cursor: pointer;
 }
 
-.nayojs-dtp-controller input {
+.nayojs-dtp-controller-input {
   outline: none;
   border: none;
   background-color: transparent;
@@ -30,7 +30,7 @@ export const TimePickerDefaultStyles = createGlobalStyle`
   cursor: pointer;
 }
 
-.nayojs-dtp-controller svg {
+.nayojs-dtp-controller-icon {
   width: 20px;
   height: 20px;
   cursor: pointer;

@@ -17,6 +17,7 @@ export const Calendar: React.FC<CalenderPropsI> = ({
     containerClass = "nayojs-calendar-container",
     headerClass = "nayojs-calendar-header",
     headerTitleClass = "nayojs-calendar-header-title",
+    headerTitleTextClass = "nayojs-calendar-header-title-text",
     selectButtonClass = "nayojs-calendar-header-button",
     selectButtonIconClass = "nayojs-calendar-header-button-icon",
     optionPickerClass = "nayojs-calendar-selector-list",
@@ -40,6 +41,7 @@ export const Calendar: React.FC<CalenderPropsI> = ({
     containerStyles = {},
     headerStyles = {},
     headerTitleStyles = {},
+    headerTitleTextStyles = {},
     selectButtonStyles = {},
     selectButtonIconStyles = {},
     optionPickerStyles = {},
@@ -87,7 +89,9 @@ export const Calendar: React.FC<CalenderPropsI> = ({
       <div className={containerClass} style={containerStyles} ref={calendarRef}>
         <div className={headerClass} style={headerStyles}>
           <div className={headerTitleClass} style={headerTitleStyles}>
-            <h3>{format(currentMonth, "MMMM yyyy")}</h3>
+            <h3 className={headerTitleTextClass} style={headerTitleTextStyles}>
+              {format(currentMonth, "MMMM yyyy")}
+            </h3>
             <button
               type="button"
               className={selectButtonClass}

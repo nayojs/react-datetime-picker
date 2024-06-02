@@ -1,6 +1,6 @@
 {
   "name": "@nayojs/react-datetime-picker",
-  "version": "1.0.0",
+  "version": "1.0.5",
   "description": "A simple and flexible React component for date and time selection.",
   "main": "dist/index.js",
   "scripts": {
@@ -65,3 +65,4 @@
     "styled-components": "^6.1.11"
   }
 }
+

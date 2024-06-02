@@ -5,6 +5,7 @@ export interface CalendarClassesI {
     containerClass?: string;
     headerClass?: string;
     headerTitleClass?: string;
+    headerTitleTextClass?: string;
     selectButtonClass?: string;
     selectButtonIconClass?: string;
     optionPickerClass?: string;
@@ -32,6 +33,7 @@ export interface CalendarStylesI {
     containerStyles?: React.CSSProperties;
     headerStyles?: React.CSSProperties;
     headerTitleStyles?: React.CSSProperties;
+    headerTitleTextStyles?: React.CSSProperties;
     selectButtonStyles?: React.CSSProperties;
     selectButtonIconStyles?: React.CSSProperties;
     optionPickerStyles?: React.CSSProperties;
