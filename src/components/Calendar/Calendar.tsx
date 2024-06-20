@@ -4,7 +4,6 @@ import { CalendarDefaultStyles } from "./styles/defaultStyles";
 import { generateYears } from "../../utils/date.utils";
 import { format } from "date-fns";
 import { calendarLogic } from "./calendarLogic";
-import { GlobalrDefaultStyles } from "../../styles/globalDefaultStyles";
 
 export const Calendar: React.FC<CalenderPropsI> = ({
   calendarClasses = {},
@@ -84,8 +83,7 @@ export const Calendar: React.FC<CalenderPropsI> = ({
 
   return (
     <>
-      <GlobalrDefaultStyles theme={theme} />
-      <CalendarDefaultStyles />
+      <CalendarDefaultStyles theme={theme} />
       <div className={containerClass} style={containerStyles} ref={calendarRef}>
         <div className={headerClass} style={headerStyles}>
           <div className={headerTitleClass} style={headerTitleStyles}>

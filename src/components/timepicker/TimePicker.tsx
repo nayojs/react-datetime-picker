@@ -1,6 +1,5 @@
 import React from "react";
 import { TimePickerDefaultStyles } from "./defaultStyles";
-import { GlobalrDefaultStyles } from "../../styles/globalDefaultStyles";
 import { TimePickerProps } from "./timePicker.typs";
 import { timePickerLogics } from "./timePickerLogics";
 import { generateHours, generateMinutes } from "../../utils/time.utils";
@@ -63,8 +62,7 @@ export const TimePicker: React.FC<TimePickerProps> = ({
 
   return (
     <>
-      <GlobalrDefaultStyles theme={theme} />
-      <TimePickerDefaultStyles />
+      <TimePickerDefaultStyles theme={theme} />
       <div className={containerClass} style={containerStyles} ref={timePickerRef}>
         <div className={triggerClass} style={triggerStyles} onClick={timeListVisibilityHandler}>
           <input

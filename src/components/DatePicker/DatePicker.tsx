@@ -4,7 +4,6 @@ import { DatePickerProps } from "./datePicker.types";
 import { DatePickerDefaultStyles } from "./styles/defaultStyles";
 import { format } from "date-fns";
 import { datePickerLogics } from "./datePickerLogics";
-import { GlobalrDefaultStyles } from "../../styles/globalDefaultStyles";
 
 export const DatePicker: React.FC<DatePickerProps> = ({
   calendarClasses,
@@ -30,8 +29,7 @@ export const DatePicker: React.FC<DatePickerProps> = ({
 
   return (
     <>
-      <GlobalrDefaultStyles theme={theme} />
-      <DatePickerDefaultStyles />
+      <DatePickerDefaultStyles theme={theme} />
       <div className={containerClass} style={containerStyles} ref={datePickerElementRef}>
         <div className={triggerClass} style={triggerStyles} onClick={calendarVisibilityHandler}>
           <input type="text" value={format(selectedDate, "d MMMM yyyy")} readOnly />
