@@ -56,7 +56,10 @@ export interface CalendarStylesI {
   };
 }
 
-export interface CalenderPropsI extends CalendarClassesI, CalendarStylesI, ThemeInterface {
+export interface CalenderPropsI
+  extends CalendarClassesI,
+    CalendarStylesI,
+    ThemeInterface {
   selectDateHandler?: (date: Date) => void;
   selectYearHandler?: (year: number) => void;
 }

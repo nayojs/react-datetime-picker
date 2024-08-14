@@ -2,10 +2,7 @@
   "compilerOptions": {
     "target": "ES5",
     "module": "CommonJS",
-    "lib": [
-      "DOM",
-      "ES2015"
-    ],
+    "lib": ["DOM", "ES2015"],
     "allowJs": true,
     "jsx": "react",
     "declaration": true,
@@ -15,7 +12,5 @@
     "esModuleInterop": true,
     "skipLibCheck": true
   },
-  "include": [
-    "src"
-  ]
+  "include": ["src"]
 }

@@ -29,9 +29,10 @@ export const TimePickerDefaultStyles = createGlobalStyle<ThemeInterface>`
     box-sizing: border-box;
 }
 
-  .nayojs-dtp-main-cointainer{
-    width:320px;
+  .nayojs-tp-main-cointainer{
+    width:fit-content;
     position: relative;
+    height: fit-content;
   }
 
   .nayojs-dtp-controller {
@@ -66,7 +67,8 @@ export const TimePickerDefaultStyles = createGlobalStyle<ThemeInterface>`
 
 .nayojs-time-container {
   width: 100%;
-  height: 320px;
+  min-height:320px;
+  height: calc(100% - 60px);
   position: absolute;
   top: 60px;
   left: 0;
@@ -97,13 +99,14 @@ export const TimePickerDefaultStyles = createGlobalStyle<ThemeInterface>`
   width: 100%;
   height: calc(100% - 50px);
   display:flex;
-  column-gap: 20px;
+  column-gap: 10px;
 }
 .nayojs-time-hr {
   width: 1px;
   height: 100%;
   background-color: var(--fifth-color);
   border: none;
+  margin:0;
 }
 
 .nayojs-time-list::-webkit-scrollbar {
@@ -134,7 +137,7 @@ export const TimePickerDefaultStyles = createGlobalStyle<ThemeInterface>`
 
 .nayojs-time-list {
   height: calc(100% - 40px);
-  padding: 0 20px 20px 20px;
+  padding: 0 10px 20px 10px;
   overflow: auto;
   flex: 1;
 }
@@ -144,7 +147,7 @@ export const TimePickerDefaultStyles = createGlobalStyle<ThemeInterface>`
 }
 
 .nayojs-time-minutes-list {
-  margin: 20px 20px 0 0;
+  margin: 20px 10px 0 10px;
 }
 
 

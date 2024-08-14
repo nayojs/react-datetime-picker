@@ -3,7 +3,7 @@ import { CalenderPropsI } from "./calendar.types";
 import { CalendarDefaultStyles } from "./styles/defaultStyles";
 import { generateYears } from "../../utils/date.utils";
 import { format } from "date-fns";
-import { calendarLogic } from "./calendarLogic";
+import { useCalendar } from "./useCalendar";
 
 export const Calendar: React.FC<CalenderPropsI> = ({
   calendarClasses = {},
@@ -77,7 +77,7 @@ export const Calendar: React.FC<CalenderPropsI> = ({
     datePickHandler,
     mergeStyles,
     activeNavigator,
-  } = calendarLogic(selectDateHandler, handleYearSelection);
+  } = useCalendar(selectDateHandler, handleYearSelection);
   const years = generateYears();
   const weekNames = ["S", "M", "T", "W", "T", "F", "S"];
 
@@ -113,7 +113,7 @@ export const Calendar: React.FC<CalenderPropsI> = ({
               className={`${navigatorsButtonClass} ${navigatorsButtonPrevClass}`}
               style={mergeStyles(
                 mergeStyles(navigatorsButtonStyles, navigatorsButtonPrevStyles),
-                activeNavigator === "prev" ? activeNavigatorStyles : {}
+                activeNavigator === "prev" ? activeNavigatorStyles : {},
               )}
               onClick={() => handleMonthChange("prev")}
             >
@@ -134,7 +134,7 @@ export const Calendar: React.FC<CalenderPropsI> = ({
               className={`${navigatorsButtonClass} ${navigatorsButtonNextClass}`}
               style={mergeStyles(
                 mergeStyles(navigatorsButtonStyles, navigatorsButtonNextStyles),
-                activeNavigator === "next" ? activeNavigatorStyles : {}
+                activeNavigator === "next" ? activeNavigatorStyles : {},
               )}
               onClick={() => handleMonthChange("next")}
             >
@@ -163,7 +163,7 @@ export const Calendar: React.FC<CalenderPropsI> = ({
                 }`}
                 style={mergeStyles(
                   optionPickerItemStyles,
-                  selectedYear === year ? optionPickerItemActiveStyles : {}
+                  selectedYear === year ? optionPickerItemActiveStyles : {},
                 )}
                 ref={selectedYear === year ? selectedYearRef : null}
                 onClick={() => selectYearHandler(year)}
@@ -176,7 +176,11 @@ export const Calendar: React.FC<CalenderPropsI> = ({
         <div className={calenderClass} style={calenderStyles}>
           <div className={daysContainerClass} style={daysContainerStyles}>
             {weekNames.map((day) => (
-              <h3 key={day + Math.random()} className={dayNameClass} style={dayNameStyles}>
+              <h3
+                key={day + Math.random()}
+                className={dayNameClass}
+                style={dayNameStyles}
+              >
                 {day}
               </h3>
             ))}
@@ -190,16 +194,16 @@ export const Calendar: React.FC<CalenderPropsI> = ({
                     isSelectedDay(day)
                       ? selectedDateClass
                       : isTodayHandler(day)
-                      ? activeDateClass
-                      : ""
+                        ? activeDateClass
+                        : ""
                   }`}
                   style={mergeStyles(
                     dateStyles,
                     isSelectedDay(day)
                       ? selectedDateStyles
                       : isTodayHandler(day)
-                      ? activeDateStyles
-                      : {}
+                        ? activeDateStyles
+                        : {},
                   )}
                   onClick={() => datePickHandler(day)}
                 >

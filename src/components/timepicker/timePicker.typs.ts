@@ -34,4 +34,5 @@ export interface TimePickerProps extends DefaultTheme {
     timeLineStyles?: React.CSSProperties;
   };
   selectTimeHandler?: (time: Date) => void;
+  timeListOpen?: boolean;
 }

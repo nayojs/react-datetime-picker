@@ -81,7 +81,7 @@ export const CalendarDefaultStyles = createGlobalStyle<ThemeInterface>`
 .nayojs-calendar-selector-list {
   position:absolute;
   background-color:var(--secondary-color);
-  height:320px;
+  height:100%;
   overflow:auto;
   top:0;
   left:0;
@@ -90,11 +90,10 @@ export const CalendarDefaultStyles = createGlobalStyle<ThemeInterface>`
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   gap: 10px;
-  border: 1px solid var(--fifth-color);
   border-radius: 5px;
   align-items:start;
   align-content: start;
-
+  margin:0;
 }
 
 .nayojs-calendar-selector-list-item {

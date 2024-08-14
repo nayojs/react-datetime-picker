@@ -1,4 +1,10 @@
-import { addDays, endOfMonth, endOfWeek, startOfMonth, startOfWeek } from "date-fns";
+import {
+  addDays,
+  endOfMonth,
+  endOfWeek,
+  startOfMonth,
+  startOfWeek,
+} from "date-fns";
 export const generateYears = () => {
   const years = [];
   for (let i = 2100; i >= 1900; i--) {

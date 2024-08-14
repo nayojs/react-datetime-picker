@@ -1,7 +1,7 @@
 import React from "react";
 import { TimePickerDefaultStyles } from "./defaultStyles";
 import { TimePickerProps } from "./timePicker.typs";
-import { timePickerLogics } from "./timePickerLogics";
+import { useTimePicker } from "./useTimePicker";
 import { generateHours, generateMinutes } from "../../utils/time.utils";
 import { format } from "date-fns";
 
@@ -10,9 +10,10 @@ export const TimePicker: React.FC<TimePickerProps> = ({
   timePickerStyles = {},
   theme,
   selectTimeHandler = () => {},
+  timeListOpen = false,
 }) => {
   const {
-    containerClass = "nayojs-dtp-main-cointainer",
+    containerClass = "nayojs-tp-main-cointainer",
     triggerClass = "nayojs-dtp-controller",
     triggerInputClass = "nayojs-dtp-controller-input",
     triggerIconClass = "nayojs-dtp-controller-icon",
@@ -55,7 +56,7 @@ export const TimePicker: React.FC<TimePickerProps> = ({
     selectedMinutesRef,
     timePickerRef,
     mergeStyles,
-  } = timePickerLogics(selectTimeHandler);
+  } = useTimePicker(selectTimeHandler, timeListOpen);
 
   const hours = generateHours();
   const minutes = generateMinutes();
@@ -63,8 +64,16 @@ export const TimePicker: React.FC<TimePickerProps> = ({
   return (
     <>
       <TimePickerDefaultStyles theme={theme} />
-      <div className={containerClass} style={containerStyles} ref={timePickerRef}>
-        <div className={triggerClass} style={triggerStyles} onClick={timeListVisibilityHandler}>
+      <div
+        className={containerClass}
+        style={containerStyles}
+        ref={timePickerRef}
+      >
+        <div
+          className={triggerClass}
+          style={triggerStyles}
+          onClick={timeListVisibilityHandler}
+        >
           <input
             type="text"
             value={format(selectedTime, "HH:mm a")}
@@ -79,12 +88,15 @@ export const TimePicker: React.FC<TimePickerProps> = ({
             fill="none"
             xmlns="http://www.w3.org/2000/svg"
           >
-            <g clip-path="url(#clip0_1229_455)">
+            <g clipPath="url(#clip0_1229_455)">
               <path
                 d="M47.96 8C25.88 8 8 25.92 8 48C8 70.08 25.88 88 47.96 88C70.08 88 88 70.08 88 48C88 25.92 70.08 8 47.96 8ZM48 80C30.32 80 16 65.68 16 48C16 30.32 30.32 16 48 16C65.68 16 80 30.32 80 48C80 65.68 65.68 80 48 80Z"
                 fill="currentColor"
               />
-              <path d="M50 28H44V52L65 64.6L68 59.68L50 49V28Z" fill="currentColor" />
+              <path
+                d="M50 28H44V52L65 64.6L68 59.68L50 49V28Z"
+                fill="currentColor"
+              />
             </g>
             <defs>
               <clipPath id="clip0_1229_455">
@@ -116,7 +128,7 @@ export const TimePicker: React.FC<TimePickerProps> = ({
                     }`}
                     style={mergeStyles(
                       timeListItemsStyles,
-                      isSelectedHour(hour) ? timeListItemActiveStyles : {}
+                      isSelectedHour(hour) ? timeListItemActiveStyles : {},
                     )}
                     ref={isSelectedHour(hour) ? selectedHourRef : null}
                     onClick={() => hourChangeHandler(hour)}
@@ -138,7 +150,7 @@ export const TimePicker: React.FC<TimePickerProps> = ({
                     }`}
                     style={mergeStyles(
                       timeListItemsStyles,
-                      isSelectedMinutes(minute) ? timeListItemActiveStyles : {}
+                      isSelectedMinutes(minute) ? timeListItemActiveStyles : {},
                     )}
                     ref={isSelectedMinutes(minute) ? selectedMinutesRef : null}
                     onClick={() => minutesChangeHandler(minute)}

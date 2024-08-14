@@ -1,5 +1,11 @@
+tsconfig.json
+tslint.json
 /src
 /node_modules
 .DS_Store
-tsconfig.json
-tslint.json
+tests
+.git
+.github
+.vscode
+webpack.config.js
+.npmignore
