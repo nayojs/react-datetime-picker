@@ -1,6 +1,8 @@
 # React DateTime Picker
-
 ## Overview
+[![npm version](https://badge.fury.io/js/@nayojs%2Freact-datetime-picker.svg)](https://badge.fury.io/js/@nayojs%2Freact-datetime-picker)
+[![Downloads](https://img.shields.io/npm/dm/@nayojs/react-datetime-picker.svg)](https://npmjs.org/package/@nayojs/react-datetime-picker)
+
 React DateTime Picker is a robust and highly customizable date-time picker library for React applications. This component offers seamless integration with various UI designs, allowing developers to choose from a wide range of styling options or apply custom styles to match their projects' specific requirements.
 
 ![datetime-picker](https://github.com/user-attachments/assets/d0672930-c774-4480-befd-e27d4a9d6263)
